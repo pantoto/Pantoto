@@ -1,0 +1,10 @@
+{% extends 'pantoto/index.html' %}
+
+
+{% block contents %}
+<h3> Delete {{obj}}? </h3>
+<form action="" method="post" name='frmdelete'>
+</form>
+<input type='button' value='Delete' onclick='javascript:document.frmdelete.submit();' />
+<input type='button' value='Cancel' onclick='javascript:history.go(-1);' />
+{% endblock %}

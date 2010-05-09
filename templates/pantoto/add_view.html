@@ -1,0 +1,65 @@
+{% extends 'pantoto/index.html' %}
+
+{% block extrahead %}
+<script type='text/javascript' src='/site_media/js/view.js'> </script>
+<script type='text/javascript' src='/site_media/js/json2.js'> </script>
+<script type='text/javascript' src='/site_media/js/jquery.selectboxes.js'> </script>
+{% endblock %}
+
+{% block contents %}
+
+{% if add %}
+<h2> Add View </h2>
+{% else %}
+<h2> Edit View </h2>
+<script type='text/javascript'> get_fal('{{vid}}'); </script>
+{% endif %}
+<br/>
+
+<div>
+
+<form action="" method="post" class='frm'>
+
+<table>
+{{form}}
+</table>
+
+<p> <strong>Permissions: </strong> </p>
+
+<div id='id_perms'>
+    <table id='box-table'>
+        <thead> <tr> <th> Selected Fields </th> <th> Field Permissions </th>  </tr> </thead>
+        <tbody>
+               <tr> 
+                   <td id='sel_fields'> 
+                   </td>   
+                   <td id='sel_perms' align='center'>
+                        <p> <label> Select Personas: </label> <br/>
+                            <select multiple id='id_personas' name='sel_personas'>
+                            {% for persona in personas %}
+                                   <option value='{{persona|first}}'> {{persona|last}} </option>
+                            {% endfor %}
+                            </select>
+                        </p>
+                        <p> <label> Define Permissions: </label> <br/>
+                        <div id='sel_personas'>
+    
+                        </div>
+                        <p> <input type='button' value='<< Apply Permissions' onclick='apply_permissions()' /> </p>
+                        </p>
+                   </td>
+               </tr>
+        </tbody>
+    </table>
+</div>
+
+</form>
+
+<table>
+    <tr> <td> &nbsp; </td> <td> <input type='submit' value='{% if add %} Create {% else %} Update {% endif %} View' class='buttons' {% if add %} onclick='send_view(true);' {% else %} onclick='send_view(false,"{{vid}}");' {% endif %} /> </td> </tr>
+</table>
+
+</div>
+
+{% endblock %}
+

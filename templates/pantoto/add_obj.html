@@ -1,0 +1,21 @@
+{% extends 'pantoto/index.html' %}
+
+{% block contents %}
+
+    {% if add %}
+        <h2> Add {{obj}} </h2>
+        {% else %}
+        <h2> Edit {{obj}} </h2>
+    {% endif %}
+
+    <div>
+        <form action="" method="post" class='frm'>
+        <table>
+        {{form}}
+        <tr> <td> &nbsp; </td> <td> <input type='submit' value='{% if add %} Create {% else %} Update {% endif %} {{obj}}' class='buttons' /> </td>
+        </table>
+        </form>
+    </div>
+
+
+{% endblock %}

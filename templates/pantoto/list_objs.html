@@ -1,0 +1,87 @@
+{% extends 'pantoto/index.html' %}
+
+{% block extrahead %}
+<script type="text/javascript" src="/site_media/js/jquery.tablesorter.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('.tablesorter').tablesorter();
+});
+
+var newwindow;
+function popdialog(url,winname,height,width)
+{
+	newwindow=window.open(url,winname,"height="+height+",width="+width+",location=1");
+	newwindow.moveTo(10,10);
+	if (window.focus) {newwindow.focus()}
+}
+
+
+</script>
+
+{% endblock %}
+
+{% block contents %}
+<h2> List {{klass|capfirst}} <a href="javascript:popdialog('/help?type={{klass}}','Help on {{klass}}',250,400);"> <img src='/site_media/images/help.png' alt="What is this?"  border='0' style='vertical-align:top;'/></a></h2>
+<table cellspacing='1' class="tablesorter">
+<thead>
+<tr>
+{% for field in fields %}
+    <th> {{field|capfirst}} </th>
+{% endfor %}
+{% ifequal klass "pagelet" %}
+    <th> Edit Properties </th>
+{% endifequal %}
+    <th> Delete </th>
+</tr>
+</thead>
+<tbody>
+{% for obj in objs.object_list %}
+<tr>
+{% for col in obj %}
+{% if forloop.first %}
+<td><a href='/{{klass}}/{{col}}/'><img src='/site_media/images/edit.png' alt="Edit {{klass}}" border='0' style='vertical-align:middle;'/>{{col}}</a>  
+</td>
+{% else %}
+{% if forloop.last %}
+{% ifequal klass "pagelet" %}
+<td><a href='/{{klass}}/{{col}}/properties/'><img
+src='/site_media/images/edit.png' alt="{{klass}} Properties" border='0'
+style='vertical-align:middle;'/>  Properites </a> </td>
+{% endifequal %}
+<td><a href='/{{klass}}/{{col}}/delete/'><img src='/site_media/images/delete.png' alt="Delete {{klass}}" border='0' style='vertical-align:middle;'/> Delete </a> </td>
+{% else %}
+<!--Added for View Site for testing-->
+{% ifequal klass "site" %}
+    {% ifequal forloop.counter 2 %}
+    <td><a href='/{{klass}}/{{obj.0}}/view/'><img src='/site_media/images/see.png' alt="View {{klass}}" border='0' style='vertical-align:middle;'/>{{col}}</a></td>
+    {% else %}
+    <td>{{col}}</td>
+    {% endifequal %}
+{% else %}
+<td>{{col}}</td>
+{% endifequal %}
+
+{% endif %}
+{% endif %}
+{% endfor %}
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<div class="pagination">
+    <span class="step-links">
+        {% if objs.has_previous %}
+            <a href="?page={{ objs.previous_page_number }}"><img src='/site_media/images/previous.png' alt="Previous" border='0' style='vertical-align:top;'/>&nbsp;<span style='color:#1133AA;'>Previous</span></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ objs.number }} of {{ objs.paginator.num_pages }}.
+        </span>
+
+        {% if objs.has_next %}
+            <a href="?page={{ objs.next_page_number }}"><span style='color:#1133AA;'>Next</span>&nbsp;<img src='/site_media/images/next.png' alt="Next" border='0' style='vertical-align:top;'/></a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

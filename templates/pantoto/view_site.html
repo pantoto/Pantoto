@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<title>{{site.name}}</title>
+<link href="/site_media/{{site.theme}}/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/site_media/{{site.theme}}/css/superfish.css" media="screen" >
+<script type="text/javascript" src="/site_media/js/jquery.js"></script>
+<script type="text/javascript" src="/site_media/js/hoverIntent.js"></script>
+<script type="text/javascript" src="/site_media/js/superfish.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+$('ul.sf-menu').superfish();
+});
+
+function switchMenu(obj) {
+	var divs=document.getElementsByTagName('div'),i=0;
+	for(var i;i<divs.length;i++)
+	{		
+		str = divs[i].id
+		pos = str.indexOf("cat")
+		if(pos >= 0)
+		{
+			divs[i].style.display = 'none';
+		}
+	}
+    var el = document.getElementById(obj);
+	if ( el.style.display != "none" ) {
+		el.style.display = 'none';
+	}
+	else {
+		el.style.display = '';
+	}
+}
+</script>
+
+{% block extrahead %}
+
+{% endblock %}
+</head>
+<div id="wrapper">
+   <div id="header">
+        <div id="logo">
+            <h1><a href="/">{{site.name}}</a></h1>
+        </div>
+        <div id='top-links'>
+            <a href='/login/'> Login to Pantoto </a> 
+        </div>
+    </div>
+      <div id='menu' >
+      {% block menu %}
+         {% for category in categories %}
+    
+         <ul class="sf-menu">
+            <li class='current'>
+                <a href='#' onclick="switchMenu('cat_{{category.id}}')"> {{category.name}} </a>
+            </li>
+         </ul>
+         {% endfor %}
+      {% endblock %}
+      </div>
+      <div id='content'>
+         {% for category in categories %}
+         {% block contents %}
+			{% if forloop.first %}
+         		<div id="cat_{{category.id}}" style="display:block" >
+			{% else %}
+         		<div id="cat_{{category.id}}" style="display:none" >
+			{% endif %}	
+         	<p>{{category.description}}</p>
+         </div>
+         {% endblock %}
+         {% endfor %}
+      </div>
+   
+</div>
+</body>
+</html>
+

@@ -1,0 +1,79 @@
+{% extends 'pantoto/index.html' %}
+
+{% block extrahead %}
+<script type="text/javascript" src="/site_media/js/jquery.tablesorter.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('.tablesorter').tablesorter();
+});
+
+var newwindow;
+function popdialog(url,winname,height,width)
+{
+	newwindow=window.open(url,winname,"height="+height+",width="+width+",location=1");
+	newwindow.moveTo(10,10);
+	if (window.focus) {newwindow.focus()}
+}
+
+
+</script>
+
+{% endblock %}
+
+{% block contents %}
+<h2> List {{klass|capfirst}} <a href="javascript:popdialog('/help?type={{klass}}','Help on {{klass}}',250,400);"> <img src='/site_media/images/help.png' alt="What is this?"  border='0' style='vertical-align:top;'/></a></h2>
+<table cellspacing='1' class="tablesorter">
+<thead>
+
+<tr>
+{% for field in fields %}
+    <th> {{field|capfirst}} </th>
+{% endfor %}
+    <th> Delete </th>
+</tr>
+
+</thead>
+
+<tbody>
+{% for obj in objs.object_list %}
+<tr>
+{% for col in obj %}
+
+	{% if forloop.first %}
+		<td><a href='/{{klass}}/{{col}}/'><img src='/site_media/images/edit.png' alt="Delete {{klass}}" border='0' 
+			style='vertical-align:middle;'/>{{col}} </a> </td>
+			
+			<script type = "text/javascript">
+			var x = '{{col}}';
+			function do_post_pagelet(x,cls)
+			{
+				alert(cls);
+				alert(x);
+				//return '/' + cls + '/' + x+'/post';
+			}
+			</script>
+	{% else %}{% if forloop.last %}
+			<td><a href='/{{klass}}/{{col}}/delete/'><img src='/site_media/images/delete.png' alt="Delete {{klass}}" 
+			border='0' style='vertical-align:middle;'/> Delete </a> </td>
+
+	{% else %}{% ifequal forloop.counter 4 %}
+			{% if col %}
+				<td><a href='/{{klass}}/{{obj.0}}/post'><img src='/site_media/images/postpage.jpeg' width="20" height="20" 
+				alt="Delete {{klass}}" border='0' style='vertical-align:middle;'/>Post Pagelet </a> </td>
+			{% else %}
+				<td><a href='/{{klass}}/{{obj.0}}/'><img src='/site_media/images/postsim.jpeg' width="20" height="20" 
+				alt="Delete {{klass}}" border='0' style='vertical-align:middle;'/> Post Similar </a> </td>
+			{% endif %}
+	{% else %}
+		<td>{{col}}</td>
+	{% endifequal %}{% endif %}{% endif %}
+
+{% endfor %}
+</tr>
+{% endfor %}
+
+
+</tbody>
+</table>
+{% endblock %}

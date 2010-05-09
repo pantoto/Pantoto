@@ -1,0 +1,26 @@
+{% extends 'pantoto/index.html' %}
+
+{% block extrahead %}
+<script type='text/javascript' src='/site_media/js/tiny_mce/tiny_mce.js'></script>
+<script type='text/javascript' src='/site_media/js/init_rte.js'></script>
+{% endblock %}
+
+{% block contents %}
+
+{% if add %}
+<h2> Add Pagelet </h2>
+{% else %}
+<h2> Edit Pagelet </h2>
+{% endif %}
+
+<div>
+<form action="" method="post" class='frm'>
+<table>
+{{form}}
+<tr> <td> &nbsp; </td> <td> <input type='submit' value='{% if add %} Create {% else %} Update {% endif %} {{obj}}' class='buttons' /> </td>
+</table>
+</form>
+
+</div>
+
+{% endblock %}

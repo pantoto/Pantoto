@@ -1,0 +1,23 @@
+{% extends 'pantoto/index.html' %}
+
+{% block extrahead %}
+<script type='text/javascript' src='/site_media/js/tiny_mce/tiny_mce.js'></script>
+<script type='text/javascript' src='/site_media/js/init_rte.js'></script>
+{% endblock %}
+
+{% block contents %}
+
+<h2> Post Pagelet </h2>
+
+<div>
+
+<form action="" method="post" class='frm'>
+<table>
+{{form}}
+<tr> <td> &nbsp; </td> <td> <input type='submit' value='Post Pagelet' class='buttons' /> </td> </tr>
+</table>
+</form>
+
+</div>
+
+{% endblock %}

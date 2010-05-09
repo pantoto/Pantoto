@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Pantoto Lite</title>
+<link href="/site_media/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/site_media/css/superfish.css" media="screen">
+<script type="text/javascript" src="/site_media/js/jquery.js"></script>
+<script type="text/javascript" src="/site_media/js/hoverIntent.js"></script>
+<script type="text/javascript" src="/site_media/js/superfish.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+$('ul.sf-menu').superfish();
+});
+
+</script>
+
+{% block extrahead %}
+
+{% endblock %}
+
+</head>
+<body>
+<div id="wrapper">
+   <div id="header">
+        <div id="logo">
+            <h1><a href="/">Pantoto Lite </a></h1>
+        </div>
+        <div id='top-links'>
+            {% if user.is_authenticated %}
+               Welcome {{user.first_name}} / <a href='/logout/'> Logout </a> 
+            {% else %}
+                <a href='/login/'> Login </a>
+            {% endif %}
+        </div>
+    </div>
+    <div id='menu'>
+    {% block menu %}
+         <ul class="sf-menu">
+            <li class='current'>
+                <a href='#'> <img src='/site_media/images/user.png' alt=''  class='menu-img' /> Users </a>
+                <ul>
+                    <li> <a href='/user/'> List Users </a> </li>
+                    <li> <a href='/user/add/'> Add User </a> </li>
+                </ul>
+            </li>
+            <li>
+                <a href='#'> <img src='/site_media/images/persona.png' alt=''  class='menu-img' /> Personas </a>
+                <ul>
+                    <li> <a href='/persona/'> List Personas </a> </li>
+                    <li> <a href='/persona/add/'> Add Persona </a> </li>
+                </ul>
+            </li>
+            <li>
+                <a href='#'> <img src='/site_media/images/field.png' alt=''  class='menu-img'  /> Fields </a>
+                <ul>
+                    <li> <a href='/field/'> List Fields </a> </li>
+                    <li> <a href='/field/add/'> Add Field </a> </li>
+                </ul>
+            </li>
+            <li>
+                <a href='#'> <img src='/site_media/images/view.png' alt=''  class='menu-img' /> Views </a>
+                <ul>
+                    <li> <a href='/view/'> List Views </a> </li>
+                    <li> <a href='/view/add/'> Add View </a> </li>
+                </ul>
+            </li>
+            <li>
+                <a href='#'> <img src='/site_media/images/pagelet.png' alt='' class='menu-img' /> Pagelets </a>
+                <ul>
+                    <li> <a href='/pagelet/'> List Pagelets </a> </li>
+                    <li> <a href='/pagelet/add/'> Add Pagelet </a> </li>
+                </ul>
+            </li>
+            <li>
+                <a href='#'> <img src='/site_media/images/site.png' alt=''  class='menu-img'  /> Sites </a>
+                <ul>
+                    <li> <a href='/site/'> List Sites </a> </li>                    
+                    <li> <a href='/category/'> List Categories </a> </li>
+                    <li> <a href='/category/add/'> Add Category </a> </li>
+                    <li> <a href='/site/add/'> Add Site </a> </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href='#'> <img src='/site_media/images/account.png' alt='' class='menu-img' /> My Account </a>
+                <ul>
+                    <li> <a href='/user/{{user.get_uid}}/'>Edit&nbsp;Profile</a> </li>
+                    <li> <a href='/change_password/'>Change&nbsp;Password</a> </li>
+                </ul>
+            </li>
+         </ul>
+    {% endblock %}
+    </div>
+    <div id='content'>
+    {% if messages %}
+    <div>
+        <ul class='messagelist'> <li> {{ messages }} </li> </ul>
+    </div>
+    {% endif %}
+    {% if errors %}
+    <div>
+        <ul class='errorlist'> <li> {{ messages }} </li> </ul>
+    </div>
+    {% endif %}
+ 
+    {% block contents %}
+
+    {% endblock %}
+    </div>
+</div>
+</body>
+</html>
+

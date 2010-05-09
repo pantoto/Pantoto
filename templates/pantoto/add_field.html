@@ -1,0 +1,30 @@
+{% extends 'pantoto/index.html' %}
+
+{% block extrahead %}
+        <script type="text/javascript" src="/site_media/js/field.js"></script>
+{% endblock %}
+
+{% block contents %}
+    {% if add %}
+        <h2> Add Field </h2>
+        {% else %}
+        <h2> Edit Field </h2>
+    {% endif %}
+
+    <div>
+        <form action="" method="post" class='frm'>
+        <table>
+        <tr id="id_row_label"><th>{{form.label.label_tag}}</th><td>{{form.label}}</td></tr>
+        <tr id="id_row_type"><th>{{form.field_type.label_tag}}</th><td>{{form.field_type}}</td></tr>
+        <tr id="id_row_required"><th>{{form.required.label_tag}}</th><td>{{form.required}}</td></tr>
+        <tr id="id_row_help_text"><th>{{form.help_text.label_tag}}</th><td>{{form.help_text}}</td></tr>
+        <tr id="id_row_max_length"><th>{{form.max_length.label_tag}}</th><td>{{form.max_length}}</td></tr>
+        <tr id="id_row_initial"><th>{{form.initial.label_tag}}</th><td>{{form.initial}}<br />{{form.initial.help_text}}</td></tr>
+        <tr id="id_row_choices"><th>{{form.choices.label_tag}}</th><td>{{form.choices}}<br />{{form.choices.help_text}}</td></tr>
+        <tr id="id_row_rows"><th>{{form.rows.label_tag}}</th><td>{{form.rows}}</td></tr>
+        <tr id="id_row_cols"><th>{{form.cols.label_tag}}</th><td>{{form.cols}}</td></tr>
+        <tr> <td> &nbsp; </td> <td> <input type='submit' value='{% if add %} Add {% else %} Edit {% endif %} Field' class='buttons' /> </td></tr>
+        </table>
+       </form>
+    </div>
+{% endblock %}

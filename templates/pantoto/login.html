@@ -1,0 +1,20 @@
+{% extends 'pantoto/index.html' %}
+
+{% block menu %} {% endblock %}
+
+{% block contents %}
+
+<form action='' method='post'>
+<p>
+<input type='hidden' name='next' value='{{next}}' />
+</p>
+<table id='box-table'>
+<tr> <th> Login </th> <th>&nbsp;</th> </tr> 
+{% if errors %} <tr> <td> &nbsp; </td> <td><ul class='errorlist'> <li> {{errors}} </li> </ul> </td> </tr> {% endif %}
+<tr> <td> Username </td> <td> <input type='text' name='username' value='' /> </td> </tr>
+<tr> <td> Password </td> <td> <input type='password' name='password' value='' /> </td> </tr>
+<tr>  <td>&nbsp;</td> <td align='center'> <input type='submit' value='Login' /> </td> </tr>
+</table>
+</form>
+
+{% endblock %}
